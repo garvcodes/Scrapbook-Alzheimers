@@ -1,3 +1,5 @@
+import Feed from '@components/Feed'
+
 const Home = () => {
   return (
     <section className = "w-full flex-center flex-col">
@@ -9,6 +11,9 @@ const Home = () => {
       <p className = "desc text-center">
         NailFungus is going to deplaque your nails boy
       </p>
+
+      <Feed />
+
     </section>
   )
 }
