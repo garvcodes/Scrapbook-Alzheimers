@@ -12,14 +12,11 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const setUpProviders = async () => {
-      const response = await getProviders();
-
-      setProviders(response);
-    }
-
-    setUpProviders();
-  }, [])
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+    })();
+  }, []);
 
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
@@ -31,9 +28,8 @@ const Nav = () => {
           height={30}
           className='object-contain'
         />
-        <p className='logo_text'>Scrapbook</p>
+        <p className='logo_text'>Promptopia</p>
       </Link>
-
 
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
