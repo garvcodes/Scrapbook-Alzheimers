@@ -10,10 +10,10 @@ export const metadata = {
 
 const RootLayout = ({ children }) => (
   <html lang='en'>
-    <body>
+    <body className = 'bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100'>
       <Provider>
         <div className='main'>
-          <div className='gradient' />
+          <div className='background' />
         </div>
 
         <main className='app'>
