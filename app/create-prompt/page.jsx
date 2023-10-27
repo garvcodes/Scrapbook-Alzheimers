@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation'
 
 import Form from '@components/Form'
 
-import React from 'react'
 
-const CreateMemory = () => {
+
+const CreatePrompt = () => {
 
     const [submitting, setSubmitting] = useState(false);
     const [post, setPost] = useState({
@@ -16,7 +16,7 @@ const CreateMemory = () => {
         tag: '',
     });
 
-    const createMemory = async (e) =>{
+    const createPrompt = async (e) =>{
 
     }
 
@@ -31,4 +31,4 @@ const CreateMemory = () => {
   )
 }
 
-export default page
+export default CreatePrompt

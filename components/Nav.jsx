@@ -35,7 +35,7 @@ const Nav = () => {
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
-            <Link href='/create-memory(w)' className='black_btn'>
+            <Link href='/create-prompt' className='black_btn'>
               Write Memory
             </Link>
 
@@ -95,7 +95,7 @@ const Nav = () => {
                   My Profile
                 </Link>
                 <Link
-                  href='/create-memory(w)'
+                  href='/create-prompt'
                   className='dropdown_link'
                   onClick={() => setToggleDropdown(false)}
                 >
