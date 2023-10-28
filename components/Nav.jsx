@@ -22,7 +22,7 @@ const Nav = () => {
     <nav className='flex-between w-full mb-16 pt-3'>
       <Link href='/' className='flex gap-2 flex-center'>
         <Image
-          src='/assets/images/logo.svg'
+          src='https://upload.wikimedia.org/wikipedia/commons/8/87/Purple_ribbon.svg'
           alt='logo'
           width={30}
           height={30}
@@ -36,6 +36,10 @@ const Nav = () => {
         {session?.user ? (          
 
           <div className='flex gap-3 md:gap-5'>
+
+            <Link href='/' className='purple_btn'>
+              Remember
+            </Link>
 
             <Link href='/' className='black_btn'>
               Tell Story

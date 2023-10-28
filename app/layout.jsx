@@ -4,8 +4,8 @@ import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 
 export const metadata = {
-  title: "ScrapbookDB",
-  description: "Scan, Memorize, then Remember",
+  title: "Scrapbook",
+  description: "Talk, Memorize, Remember",
 };
 
 const RootLayout = ({ children }) => (
