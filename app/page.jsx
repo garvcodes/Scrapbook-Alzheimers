@@ -11,6 +11,7 @@ const Home = () => (
       Where your brain falters, we pick up the slack. Live your life and make some memories, let us worry about keeping them. 
     </p>
 
+
     <Feed />
   </section>
 );
