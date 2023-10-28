@@ -4,16 +4,14 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation'; 
 
-const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
-    return (
-        <div className = "prompt_card"> 
-            <div className = 'flex justify-between items-start gap-5'>
-                <p>{post.prompt}</p>
-            </div>
+const PromptCard = ({ post, handleTagClick }) => (
+    <div className="prompt_card">
+      <p className="prompt_text">{post.prompt}</p>
+      <p className="post_tag">
+        <strong onClick={() => handleTagClick(post.tag)}>{post.tag}</strong>
+      </p>
+    </div>
+  );
 
-        
-        </div>
-    )
-}
 
 export default PromptCard

@@ -1,68 +1,99 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import PromptCard from './PromptCard';
+import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
-const PromptCardList = ({ data, handleTagClick }) => (
-  <div className="mt-16 prompt_layout">
-    {data.map((post) => (
-      <PromptCard
-        key={post._id}
-        post={post}
-        handleTagClick={handleTagClick}
-      />
-    ))}
-  </div>
-);
+import PromptCard from "./PromptCard";
+
+const PromptCardList = ({ data, handleTagClick }) => {
+  return (
+    <div className='mt-16 prompt_layout'>
+      {data.map((post) => (
+        <PromptCard
+          key={post._id}
+          post={post}
+          handleTagClick={handleTagClick}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Feed = () => {
-  const [searchText, setSearchText] = useState('');
-  const [posts, setPosts] = useState([]);
-  const { data: session } = useSession(); // Access the user's session
+  const { data: session } = useSession();
+  const [allPosts, setAllPosts] = useState([]);
 
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
-    // You can use the searchText here to filter or perform search operations
+  // Search states
+  const [searchText, setSearchText] = useState("");
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  const [searchedResults, setSearchedResults] = useState([]);
+
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
+
+    setAllPosts(data);
   };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/prompt'); // Fixed typo in the API endpoint
-        const data = await response.json();
-        setPosts(data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        // Handle error if fetch fails
-      }
-    };
     fetchPosts();
   }, []);
 
-  // Render the feed only if the user is logged in (session exists)
-  return (
-    <>
-      {session && (
-        <section className="feed">
-          <form className="relative w-full flex-center">
-            <input
-              type="text"
-              placeholder="Search through your memories here"
-              value={searchText}
-              onChange={handleSearchChange}
-              required
-              className="search_input peer"
-            />
-          </form>
+  const filterPrompts = (searchText) => {
+    const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
+    return allPosts.filter(
+      (item) =>
+        regex.test(item.creator.username) ||
+        regex.test(item.tag) ||
+        regex.test(item.prompt)
+    );
+  };
 
-          <PromptCardList
-            data={posts}
-            handleTagClick={() => {}}
+  const handleSearchChange = (e) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    // Debounce method
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = filterPrompts(e.target.value);
+        setSearchedResults(searchResult);
+      }, 500)
+    );
+  };
+
+  const handleTagClick = (tagName) => {
+    setSearchText(tagName);
+
+    const searchResult = filterPrompts(tagName);
+    setSearchedResults(searchResult);
+  };
+
+  return (
+    session?.user && (
+      <section className='feed'>
+        <form className='relative w-full flex-center'>
+          <input
+            type='text'
+            placeholder='Filter through your memories'
+            value={searchText}
+            onChange={handleSearchChange}
+            required
+            className='search_input peer'
           />
-        </section>
-      )}
-    </>
+        </form>
+
+        {/* All Prompts */}
+        {searchText ? (
+          <PromptCardList
+            data={searchedResults}
+            handleTagClick={handleTagClick}
+          />
+        ) : (
+          <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
+        )}
+      </section>
+    )
   );
 };
 
