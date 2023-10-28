@@ -33,8 +33,14 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
-        {session?.user ? (
+        {session?.user ? (          
+
           <div className='flex gap-3 md:gap-5'>
+
+            <Link href='/' className='black_btn'>
+              Tell Story
+            </Link>
+
             <Link href='/create-prompt' className='black_btn'>
               Write Memory
             </Link>
