@@ -8,7 +8,7 @@ const Home = () => (
       <span className='orange_gradient text-center'> Take Back Control from Alzheimers</span>
     </h1>
     <p className='desc text-center'>
-      Gone are the days of searching through files manually. Simply upload, then ask Scrapbook to find what you're looking for. 
+      Where your brain falters, we pick up the slack. Live your life and make memories, let us worry about remembering them. 
     </p>
 
     <Feed />
