@@ -4,10 +4,10 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
     <section className='w-full max-w-full flex-start flex-col'>
       <h1 className='head_text text-left'>
-        <span className='blue_gradient'>{type} Post</span>
+        <span className='orange_gradient'>{type} Memory</span>
       </h1>
       <p className='desc text-left max-w-md'>
-        {type} Share memories within your database to make it availble to the AI 
+        {type} memories within your database to make it availble to our AI 
       </p>
 
       <form
@@ -30,7 +30,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
         <label>
           <span className='font-satoshi font-semibold text-base text-gray-700'>
-            Field of Prompt{" "}
+            What is your memory about?{" "}
             <span className='font-normal'>
               (#family, #friends, #life, etc.)
             </span>
