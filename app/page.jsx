@@ -8,7 +8,7 @@ const Home = () => (
       <span className='orange_gradient text-center'> Take Back Control from Alzheimers</span>
     </h1>
     <p className='desc text-center'>
-      Where your brain falters, we pick up the slack. Live your life and make memories, let us worry about remembering them. 
+      Where your brain falters, we pick up the slack. Live your life and make some memories, let us worry about keeping them. 
     </p>
 
     <Feed />

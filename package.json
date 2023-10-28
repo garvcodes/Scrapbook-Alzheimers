@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chatgpt": "^5.2.5",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
     "next": "13.5.6",

@@ -37,8 +37,13 @@ const Nav = () => {
 
           <div className='flex gap-3 md:gap-5'>
 
+            <Link href='/' className='purple_btn md:gap-9'>
+              CH Pred. (Beta)
+            </Link>
+
+
             <Link href='/' className='purple_btn'>
-              Remember Story
+              Hear Story
             </Link>
 
             <Link href='/' className='black_btn'>
