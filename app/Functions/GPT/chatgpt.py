@@ -14,13 +14,14 @@ from sqlalchemy.engine import URL
 import constants
 
 
-def chat(): 
+os.environ["OPENAI_API_KEY"] = constants.APIKEY
+PERSIST = False
 
-  os.environ["OPENAI_API_KEY"] = constants.APIKEY
+app = Flask(__name__)
+@app.route("/chat")
+# Enable to save to disk & reuse the model (for repeated queries on the same data)
 
-  # Enable to save to disk & reuse the model (for repeated queries on the same data)
-  PERSIST = False
-
+def chat():
   query = None
   if len(sys.argv) > 1:
     query = sys.argv[1]
@@ -43,6 +44,7 @@ def chat():
   )
 
   chat_history = []
+  rv = ''
   while True:
     if not query:
       query = input("Prompt: ")
@@ -50,10 +52,11 @@ def chat():
       sys.exit()
     result = chain({"question": query, "chat_history": chat_history})
     print(result['answer'])
-
+    rv = result['answer']
     chat_history.append((query, result['answer']))
     query = None
-    return result['answer']
 
-chat()
+
+if __name__ == "__main__": 
+  app.run(debug=True)
 

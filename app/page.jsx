@@ -13,6 +13,8 @@ const Home = () => (
 
 
     <Feed />
+
+    
   </section>
 );
 

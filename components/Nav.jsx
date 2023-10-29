@@ -42,7 +42,7 @@ const Nav = () => {
             </Link>
 
 
-            <Link href='/chatbot' className='purple_btn'>
+            <Link href='/app/chatbot/page.html' className='purple_btn'>
               Chat with Yourself
             </Link>
 
