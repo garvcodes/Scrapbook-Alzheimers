@@ -42,8 +42,8 @@ const Nav = () => {
             </Link>
 
 
-            <Link href='/' className='purple_btn'>
-              Hear Story
+            <Link href='/chatbot' className='purple_btn'>
+              Chat with Yourself
             </Link>
 
             <Link href='/tell-story' className='black_btn'>
