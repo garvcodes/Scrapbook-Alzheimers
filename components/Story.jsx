@@ -162,5 +162,4 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
     </section>
   );
 };
-
 export default Form;
