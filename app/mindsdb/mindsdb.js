@@ -1,55 +1,69 @@
 const MindsDB = require("mindsdb-js-sdk").default;
 
+const DATABASE_NAME = 'scrapbook_js_v3';
+const is_connected = false;
+
 let mindsDBConnect = async function() { 
+    // Check if already connected
+    if (is_connected) {
+        console.log('Already connected to MindsDB');
+        return true;
+    }
+
     try {
         await MindsDB.connect({
             user: 'ronitrjain@gmail.com',
             password: 'MaggieWalker1!'
         });
-    console.log('connected');
-    return true;
-    
+        console.log('Connected to MindsDB');
+        return true;
     } catch(error) {
-    // Failed to authenticate
-    console.log(error);
+        console.log('Failed to authenticate with MindsDB:', error);
+        return false;
     }
 }
 
-const connectionParams = {
-    'host': 'mongodb+srv://garv5114:62712810@nailfungus.ocp1zst.mongodb.net/',
-    'database': 'store_prompts' 
-  }
-  
 let connecttoMongo = async function() { 
-  try {
-    const mongoDatabase = await MindsDB.Databases.createDatabase(
-      'scrapbook_js_db', // Name of the datasource
-      'mongodb',          // Type of the database
-      connectionParams, // Connection parameters
-    );
-    console.log('Connected to MongoDB successfully!');
-  } catch (error) {
-    throw(error);
-  }
+    // Check if database already exists
+    if (MindsDB.Databases.getDatabase(DATABASE_NAME)) {
+        console.log('Already connected to MongoDB');
+        return;
+    }
+
+    try {
+        await MindsDB.Databases.createDatabase(
+            DATABASE_NAME,
+            'mongodb',
+            {
+                'host': 'mongodb+srv://garv5114:62712810@nailfungus.ocp1zst.mongodb.net/',
+                'database': 'share_prompt' 
+            }
+        );
+        console.log('Connected to MongoDB successfully!');
+        is_connected = true;
+    } catch (error) {
+        console.error('Failed to connect to MongoDB:', error);
+    }
 }
 
-let main = (async function() {
+let main = async function() {
     const isConnected = await mindsDBConnect();
-    console.log(isConnected);
     if (isConnected) {
         await connecttoMongo();
-        }
-    
-});
-
-let fetchData = async function() {
-    try {
-        const data = await MindsDB.Databases.getDatabase('scrapbook_js_db').query('SELECT * FROM store_prompts');
-        console.log(data);
-    } catch (error) {
-        throw(error);
     }
-}
-console.log(fetchData());
+    const db = await MindsDB.Databases.getDatabase(DATABASE_NAME);
+    console.log(db);
+    
+    const query = 'SELECT * FROM scrapbook_js_v3.prompts';
+    let prompts = await MindsDB.SQL.runQuery(query);
+    console.log(prompts);
+    return prompts;
+};
 
-  
+prompts = main();
+
+let mlHanlders = async function() {
+  const query = 'SHOW HANDLERS WHERE type = \‘ml\'';
+  result = await MindsDB.SQL.runQuery(query);
+  console.log(result);
+}
