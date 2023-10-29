@@ -1,17 +1,44 @@
 import Link from "next/link";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+
+  const saveToLocalStorage = () => {
+    // Get current list of memories from local storage
+    const memories = JSON.parse(localStorage.getItem("memories") || "[]");
+    memories.push({ prompt: post.prompt, tag: post.tag });
+    localStorage.setItem("memories", JSON.stringify(memories));
+  };
+
+  const downloadTxtFile = () => {
+    const memories = JSON.parse(localStorage.getItem("memories") || "[]");
+    const fileContent = memories.map(mem => `Memory: ${mem.prompt}\nTag: ${mem.tag}\n`).join('\n');
+
+    const element = document.createElement("a");
+    const file = new Blob([fileContent], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = "/Users/yashjain/Documents/Zoom/myMemories.txt";
+    document.body.appendChild(element);
+    element.click();
+  };
+
+  const enhancedHandleSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit();
+    saveToLocalStorage();
+    downloadTxtFile();
+  }
+
   return (
     <section className='w-full max-w-full flex-start flex-col'>
       <h1 className='head_text text-left'>
         <span className='orange_gradient'>{type} Memory</span>
       </h1>
       <p className='desc text-left max-w-md'>
-        {type} memories within your database to make it availble to our AI 
+        {type} memories within your database to make it available to our AI 
       </p>
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={enhancedHandleSubmit}
         className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
       >
         <label>
