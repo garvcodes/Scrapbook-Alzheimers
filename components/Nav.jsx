@@ -46,7 +46,7 @@ const Nav = () => {
               Hear Story
             </Link>
 
-            <Link href='/' className='black_btn'>
+            <Link href='/tell-story' className='black_btn'>
               Tell Story
             </Link>
 
